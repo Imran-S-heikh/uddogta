@@ -1,25 +1,32 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Records from './pages/Records.page';
+import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecordState } from './state/records.atom';
+import { AppState } from './state/app.atom';
+import RecordSingle from './pages/RecordSingle.page';
+
+const Switch = ()=>{
+
+  const {page} = useRecoilValue(AppState);
+
+  switch (page) {
+    case 'record':
+      return <RecordSingle/>
+  
+    default:
+      return <Records/>
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RecoilRoot>
+      <div className="">
+        <Switch/>
+      </div>
+    </RecoilRoot>
   );
 }
 
