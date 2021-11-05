@@ -1,16 +1,82 @@
-import React, { ReactElement, useState } from 'react'
-import { useRecoilState } from 'recoil';
+import React, { ReactElement, useContext, useState } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonRipple from '../components/buttons/ButtonRipple.component';
 import DropDown from '../components/drop-down/DropDown.component';
 import Table from '../components/table/Table.component';
-import TableBody from '../components/table/TableBody.component';
+import TableBody, { RowContext } from '../components/table/TableBody.component';
 import TableCell from '../components/table/TableCell.component';
 import TableHead from '../components/table/TableHead.component';
 import TableRow from '../components/table/TableRow.component';
-import { RecordState } from '../state/records.atom';
+import { RecordsState, RecordState } from '../state/records.atom';
+import { v4 as uuidv4 } from 'uuid';
+import Icon from '../molecules/Icon.mole';
+import Backdrop from '../components/backdrop/Backdrop.component';
+import ClickAwayListener from 'react-click-away-listener';
+import { AppState } from '../state/app.atom';
 
 interface Props {
 
+}
+
+const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
+
+    const { id } = useContext(RowContext);
+
+
+    const handleClick = () => {
+        if (id) {
+            onDelete && onDelete(id);
+        }
+    }
+
+    return (
+        <div className="Cur(p) Op(.6):a" onClick={handleClick}>
+            <Icon icon="delete" className="Fz(2.5rem)" />
+        </div>
+    )
+}
+
+const DeletePopup = () => {
+
+    const [open,setOpen] = useState(false);
+    const setRecords = useSetRecoilState(RecordsState);
+    const [record,setRecord] = useRecoilState(RecordState);
+    const setState = useSetRecoilState(AppState)
+
+    const handleDeleteRecord = ()=>{
+        localStorage.removeItem(record.currentRecord !)
+        setRecords(pre=>pre.filter(item=>item !== record.currentRecord));
+        setRecord(pre=>({
+            currentRecord: null,
+            record: []
+        }));
+        setOpen(false);
+        setState(pre=>({...pre,page: 'records'}))
+    }
+
+    return (
+        <React.Fragment>
+            <div className="Cur(p) Op(.6):a" onClick={()=>setOpen(true)}>
+                <Icon icon="delete" className="Fz(3rem)" />
+            </div>
+            <Backdrop open={open} className="Jc(c) Ai(c)">
+                <ClickAwayListener onClickAway={()=>setOpen(false)}>
+                    <div className="Bgc(#082032) P(2rem) Bdrs(1rem)">
+                        <h2 className="Fz(2.4rem)">Are You Sure , to delete record ?</h2>
+
+                        <div className="D(f) Mt(2rem) Gap(2rem)">
+                            <ButtonRipple onClick={()=>setOpen(false)} className="Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600)">
+                                Cancel
+                            </ButtonRipple>
+                            <ButtonRipple onClick={handleDeleteRecord} className="C(#eee) Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600) Bgc(#ff4c29)">
+                                Yes
+                            </ButtonRipple>
+                        </div>
+                    </div>
+                </ClickAwayListener>
+            </Backdrop>
+        </React.Fragment>
+    )
 }
 
 function RecordSingle({ }: Props): ReactElement {
@@ -31,25 +97,35 @@ function RecordSingle({ }: Props): ReactElement {
             record: [
                 ...pre.record,
                 {
-                    action: 'ADD',
+                    action: action,
                     value: value,
                     date: (new Date()).toLocaleDateString(),
-                    title: title
+                    title: title,
+                    id: uuidv4()
                 }
             ]
         }))
     }
 
-    const handleTitle = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
     }
 
-    console.log(state.record)
+    const handleDelete = (id: string) => {
+        setState(pre => ({
+            ...pre,
+            record: pre.record.filter(item => item.id !== id)
+        }))
+    }
 
     return (
         <div className="W(600px) Mx(a) Pt(3rem)">
             <div className="">
-                <h2 className="Fz(2.4rem) ">Add New</h2>
+                <div className="D(f) Jc(sb) Ai(c)">
+                    <h2 className="Fz(2.4rem) ">Add New</h2>
+
+                    <DeletePopup />
+                </div>
                 <div className="D(f) Fxd(c) Mt(2rem)">
                     <div className="D(f) Fxd(c) Gap(1rem) Fx(1)">
                         <p className="Fz(1.6rem) C(#96abbb)">Title:</p>
@@ -74,6 +150,7 @@ function RecordSingle({ }: Props): ReactElement {
                         <TableCell>TITLE</TableCell>
                         <TableCell>AMOUNT</TableCell>
                         <TableCell>DATE</TableCell>
+                        <TableCell>REMOVE</TableCell>
                     </TableHead>
                     <TableBody>
                         <TableRow className="H(4rem) Bgc(#2c394b) " style={{ borderTop: '1px solid #334756' }}>
@@ -89,6 +166,9 @@ function RecordSingle({ }: Props): ReactElement {
                             <TableCell.Dynamic >
                                 <span data-key="date"></span>
                             </TableCell.Dynamic>
+                            <TableCell className="">
+                                <DeleteElement onDelete={handleDelete} />
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

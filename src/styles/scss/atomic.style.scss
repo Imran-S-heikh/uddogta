@@ -100,6 +100,12 @@
 .Fz\(2\.4rem\) {
   font-size: 2.4rem;
 }
+.Fz\(2\.5rem\) {
+  font-size: 2.5rem;
+}
+.Fz\(3rem\) {
+  font-size: 3rem;
+}
 .H\(2rem\) {
   height: 2rem;
 }
@@ -137,8 +143,14 @@
 .Op\(\.8\) {
   opacity: .8;
 }
+.Op\(\.6\)\:a:active {
+  opacity: .6;
+}
 .Ov\(h\) {
   overflow: hidden;
+}
+.P\(2rem\) {
+  padding: 2rem;
 }
 .Px\(2rem\) {
   padding-left: 2rem;
