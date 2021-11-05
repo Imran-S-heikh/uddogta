@@ -15,7 +15,7 @@ interface Props {
     style?: React.CSSProperties,
     startIcon?: any,
     btnStyle?: React.CSSProperties,
-    onChange?: (v: string) => void,
+    onChange?: (v:any) => void,
     defaultValue?: string,
     className?: string,
     btnClass?: string

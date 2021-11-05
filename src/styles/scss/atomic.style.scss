@@ -76,6 +76,9 @@
 .Jc\(c\) {
   justify-content: center;
 }
+.Jc\(fe\) {
+  justify-content: flex-end;
+}
 .Jc\(fs\) {
   justify-content: flex-start;
 }
@@ -115,8 +118,10 @@
 .H\(6rem\) {
   height: 6rem;
 }
-.Mx\(a\) {
+.Mx\(a\), .Mstart\(a\) {
   margin-left: auto;
+}
+.Mx\(a\) {
   margin-right: auto;
 }
 .Mt\(-3px\) {
@@ -160,6 +165,10 @@
   padding-left: 3rem;
   padding-right: 3rem;
 }
+.Py\(1rem\) {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .Pt\(10rem\) {
   padding-top: 10rem;
 }
@@ -177,6 +186,9 @@
 }
 .W\(600px\) {
   width: 600px;
+}
+.W\(maxc\) {
+  width: max-content;
 }
 .W\(minc\) {
   width: min-content;

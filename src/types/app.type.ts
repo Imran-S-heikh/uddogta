@@ -1,0 +1,1 @@
+export enum ActionType { ADD="ADD",RM="EM" }

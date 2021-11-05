@@ -13,6 +13,7 @@ import Icon from '../molecules/Icon.mole';
 import Backdrop from '../components/backdrop/Backdrop.component';
 import ClickAwayListener from 'react-click-away-listener';
 import { AppState } from '../state/app.atom';
+import { ActionType } from '../types/app.type';
 
 interface Props {
 
@@ -21,7 +22,6 @@ interface Props {
 const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
 
     const { id } = useContext(RowContext);
-
 
     const handleClick = () => {
         if (id) {
@@ -38,34 +38,36 @@ const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
 
 const DeletePopup = () => {
 
-    const [open,setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const setRecords = useSetRecoilState(RecordsState);
-    const [record,setRecord] = useRecoilState(RecordState);
-    const setState = useSetRecoilState(AppState)
+    const [record, setRecord] = useRecoilState(RecordState);
+    const setState = useSetRecoilState(AppState);
 
-    const handleDeleteRecord = ()=>{
-        localStorage.removeItem(record.currentRecord !)
-        setRecords(pre=>pre.filter(item=>item !== record.currentRecord));
-        setRecord(pre=>({
+    // console.log(record.)
+
+    const handleDeleteRecord = () => {
+        localStorage.removeItem(record.currentRecord!)
+        setRecords(pre => pre.filter(item => item !== record.currentRecord));
+        setRecord(pre => ({
             currentRecord: null,
             record: []
         }));
         setOpen(false);
-        setState(pre=>({...pre,page: 'records'}))
+        setState(pre => ({ ...pre, page: 'records' }))
     }
 
     return (
         <React.Fragment>
-            <div className="Cur(p) Op(.6):a" onClick={()=>setOpen(true)}>
+            <div className="Cur(p) Op(.6):a" onClick={() => setOpen(true)}>
                 <Icon icon="delete" className="Fz(3rem)" />
             </div>
             <Backdrop open={open} className="Jc(c) Ai(c)">
-                <ClickAwayListener onClickAway={()=>setOpen(false)}>
+                <ClickAwayListener onClickAway={() => setOpen(false)}>
                     <div className="Bgc(#082032) P(2rem) Bdrs(1rem)">
                         <h2 className="Fz(2.4rem)">Are You Sure , to delete record ?</h2>
 
                         <div className="D(f) Mt(2rem) Gap(2rem)">
-                            <ButtonRipple onClick={()=>setOpen(false)} className="Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600)">
+                            <ButtonRipple onClick={() => setOpen(false)} className="Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600)">
                                 Cancel
                             </ButtonRipple>
                             <ButtonRipple onClick={handleDeleteRecord} className="C(#eee) Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600) Bgc(#ff4c29)">
@@ -84,7 +86,8 @@ function RecordSingle({ }: Props): ReactElement {
     const [state, setState] = useRecoilState(RecordState);
     const [value, setValue] = useState(0);
     const [title, setTitle] = useState('');
-    const [action, setAction] = useState('ADD');
+    const [action, setAction] = useState(ActionType.ADD);
+    const total = state.record.reduce((pre, {action,value}) => action === ActionType.RM ? pre-value:pre+value, 0);
 
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +140,7 @@ function RecordSingle({ }: Props): ReactElement {
                             <input value={value} placeholder="amount..." className="Fz(16px) Fx(1) H(4rem) Bdrs(4rem) Px(2rem)" onChange={handleChange} />
                         </div>
                         <div className="D(f) Fx(1)">
-                            <DropDown onChange={setAction} label="Action:" className="W(100%)" options={['ADD', 'RM']} />
+                            <DropDown onChange={setAction} label="Action:" className="W(100%)" options={[ActionType.ADD, ActionType.RM]} />
                         </div>
                     </div>
                     <ButtonRipple onClick={handleClick} className="Mt(1rem) Fz(1.6rem) Bgc(#ff4c29) C(#fff) D(b) H(2rem) Px(3rem) H(4rem) Bdrs(4rem)">SUBMIT</ButtonRipple>
@@ -146,11 +149,13 @@ function RecordSingle({ }: Props): ReactElement {
             <div className="Mt(3rem)">
                 <Table data={state.record} className="W(100%) Fz(1.6rem) Bdcl(c)">
                     <TableHead className="H(4rem) Bgc(#082032)">
-                        <TableCell>ACTION</TableCell>
-                        <TableCell>TITLE</TableCell>
-                        <TableCell>AMOUNT</TableCell>
-                        <TableCell>DATE</TableCell>
-                        <TableCell>REMOVE</TableCell>
+                        <TableRow>
+                            <TableCell>ACTION</TableCell>
+                            <TableCell>TITLE</TableCell>
+                            <TableCell>AMOUNT</TableCell>
+                            <TableCell>DATE</TableCell>
+                            <TableCell>REMOVE</TableCell>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow className="H(4rem) Bgc(#2c394b) " style={{ borderTop: '1px solid #334756' }}>
@@ -172,6 +177,10 @@ function RecordSingle({ }: Props): ReactElement {
                         </TableRow>
                     </TableBody>
                 </Table>
+                <div className="D(f) Gap(1rem) Bgc(#082032) Jc(fe) Py(1rem) Px(3rem) W(maxc) Mstart(a)">
+                    <p className="Fz(1.8rem)">Total:</p>
+                    <p className="Fz(1.8rem)">{total}</p>
+                </div>
             </div>
         </div>
     )
