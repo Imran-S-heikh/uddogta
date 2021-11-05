@@ -23,7 +23,7 @@ const Switch = ()=>{
 function App() {
   return (
     <RecoilRoot>
-      <div className="">
+      <div className="Pt(10rem)">
         <Switch/>
       </div>
     </RecoilRoot>

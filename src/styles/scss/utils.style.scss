@@ -1,0 +1,105 @@
+.center {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+.gra-bg {
+
+    position: relative;
+
+    .hv-cw{
+        transition: all 300ms;
+    }
+    .hv-see{
+        transition: all 300ms;
+        opacity: 0;
+    }
+
+    &::before {
+        content      : '';
+        position     : absolute;
+        inset        : 0;
+        background   : linear-gradient(90deg, #410f77 0%, #36105e 49%, #350a67 100%);
+        border-radius: inherit;
+        transition   : 300ms;
+    }
+
+    &.hover {
+        &::before {
+            opacity: 0;
+        }
+
+        &.active,
+        &:hover {
+            &::before {
+                opacity: 1;
+            }
+
+            .hv-cw{
+                color: #fff;
+            }
+
+            .hv-see{
+                opacity: 1;
+            }
+        }
+    }
+
+    &>*{
+        position: relative;
+    }
+}
+
+.child-white{
+    &.color{
+
+        &.active,&:hover{
+            z-index: 2;
+
+            & > .child{
+                color: #fff;
+            }
+        }
+
+    }
+    
+}
+
+.center-me{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.bd-right{
+    border-right: 1px solid #e0eafe;
+}
+
+.gra-border{
+    padding: 5px;
+    transition: all 300ms;
+
+
+    &.active,&:hover{
+        background-color: #8d47ed;
+    }
+
+    &>img{
+        display: block;
+        border-radius: inherit;
+    }
+}
+
+
+
+@for $i from 1 through 10 {
+    // .gap-#{$i}> * + * {
+    //     margin-left: #{$i+0rem};
+    // }
+
+    .gap-#{$i}{
+        gap: #{$i+0rem};
+    }
+}

@@ -6,12 +6,26 @@
 
 
 html {
-//   font-size         : 62.5%;
+  font-size         : 62.5%;
 }
 
 
+body{
+  background-color: #222831;
+  color: #EEEEEE;
+  min-height: 100vh;
+  font-family: 'Lobster', cursive;
+}
+
+button{
+  border: none;
+}
+
+input{
+  outline: none;
+  border: none
+}
 
 
-
-
-@import './styles/scss/atomic.style.scss';
+@import './assets/fonts/font-icon/icons.css';
+@import './styles/scss/main.style.scss';

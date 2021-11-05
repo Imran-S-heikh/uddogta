@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import ButtonRipple from '../components/buttons/ButtonRipple.component';
 import { AppState } from '../state/app.atom';
 import { RecordsState, RecordState } from '../state/records.atom'
 
@@ -28,10 +29,10 @@ const AddNewRecord = () => {
 
     return (
         <div className="">
-            <h2>Add New Record</h2>
-            <div className="D(f) Mt(1rem)">
-                <input onChange={handleChange} className="Fz(1.4rem)" type="text" />
-                <button onClick={addRecord} className="D(b) H(2rem) Px(3rem)">ADD</button>
+            <h2 className="Fz(2.4rem)">Add New Record</h2>
+            <div className="D(f) Fxd(c) Mt(1rem)">
+                <input placeholder="record name..." onChange={handleChange} className="Fz(16px) H(4rem) Bdrs(4rem) Px(2rem)" type="text" />
+                <ButtonRipple onClick={addRecord} className="Mt(1rem) Fz(1.6rem) Bgc(#ff4c29) C(#fff) D(b) H(2rem) Px(3rem) H(4rem) Bdrs(4rem)">ADD</ButtonRipple>
             </div>
         </div>
     )
@@ -64,13 +65,13 @@ function Records({ }: Props): ReactElement {
             <AddNewRecord/>
 
             <div className="Mt(2rem)">
-                <h2>Records</h2>
+                <h2 className="Fz(2.4rem)">Records</h2>
 
                 <div className="">
                     {records.map(item=>(
-                        <div onClick={()=>handleClick(item)} key={item} className="H(4rem) Mt(1rem) Bgc(lightgray) Bdrs(1rem) D(f) Jc(c) Ai(c)">
-                            <p>{item}</p>
-                        </div>
+                        <ButtonRipple onClick={()=>handleClick(item)} key={item} className="H(6rem) Cur(p) W(100%) Trs(trs-d) Bgc(#00edb0):h Mt(1rem) Bgc(#00adb5) Bdrs(1rem) D(f) Jc(c) Ai(c)">
+                            <p className="Fz(1.8rem) Fw(600) C(#eee)">{item}</p>
+                        </ButtonRipple>
                     ))}
                 </div>
             </div>

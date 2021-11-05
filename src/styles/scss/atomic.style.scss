@@ -1,14 +1,74 @@
+.Bd\(border\) {
+  border: 1px solid #e0eafe;
+}
+.Bd\(n\) {
+  border: none;
+}
 .Bdrs\(1rem\) {
   border-radius: 1rem;
+}
+.Bdrs\(4rem\) {
+  border-radius: 4rem;
+}
+.Bgc\(\#00adb5\) {
+  background-color: #00adb5;
+}
+.Bgc\(\#082032\) {
+  background-color: #082032;
+}
+.Bgc\(\#2c394b\) {
+  background-color: #2c394b;
+}
+.Bgc\(\#ff4c29\) {
+  background-color: #ff4c29;
+}
+.Bgc\(\#fff\) {
+  background-color: #fff;
+}
+.Bgc\(gray\) {
+  background-color: gray;
 }
 .Bgc\(lightgray\) {
   background-color: lightgray;
 }
+.Bgc\(\#00edb0\)\:h:hover {
+  background-color: #00edb0;
+}
+.Bdcl\(c\) {
+  border-collapse: collapse;
+}
+.C\(\#20083a\) {
+  color: #20083a;
+}
+.C\(\#878e93\) {
+  color: #878e93;
+}
+.C\(\#96abbb\) {
+  color: #96abbb;
+}
+.C\(\#eee\) {
+  color: #eee;
+}
+.C\(\#fff\) {
+  color: #fff;
+}
+.Cur\(p\) {
+  cursor: pointer;
+}
 .D\(b\) {
+  display: block;
+}
+.D\(b\)\:\:b::before {
   display: block;
 }
 .D\(f\) {
   display: flex;
+}
+.Fx\(1\) {
+  flex: 1;
+}
+.Fxd\(c\) {
+  flex-direction: column;
 }
 .Ai\(c\) {
   align-items: center;
@@ -16,8 +76,29 @@
 .Jc\(c\) {
   justify-content: center;
 }
+.Jc\(fs\) {
+  justify-content: flex-start;
+}
+.Jc\(sb\) {
+  justify-content: space-between;
+}
+.Fw\(600\) {
+  font-weight: 600;
+}
 .Fz\(1\.4rem\) {
   font-size: 1.4rem;
+}
+.Fz\(1\.6rem\) {
+  font-size: 1.6rem;
+}
+.Fz\(1\.8rem\) {
+  font-size: 1.8rem;
+}
+.Fz\(16px\) {
+  font-size: 16px;
+}
+.Fz\(2\.4rem\) {
+  font-size: 2.4rem;
 }
 .H\(2rem\) {
   height: 2rem;
@@ -25,9 +106,15 @@
 .H\(4rem\) {
   height: 4rem;
 }
+.H\(6rem\) {
+  height: 6rem;
+}
 .Mx\(a\) {
   margin-left: auto;
   margin-right: auto;
+}
+.Mt\(-3px\) {
+  margin-top: -3px;
 }
 .Mt\(1rem\) {
   margin-top: 1rem;
@@ -38,6 +125,21 @@
 .Mt\(3rem\) {
   margin-top: 3rem;
 }
+.Mih\(4rem\) {
+  min-height: 4rem;
+}
+.Miw\(12rem\) {
+  min-width: 12rem;
+}
+.Miw\(maxc\) {
+  min-width: max-content;
+}
+.Op\(\.8\) {
+  opacity: .8;
+}
+.Ov\(h\) {
+  overflow: hidden;
+}
 .Px\(2rem\) {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -46,9 +148,42 @@
   padding-left: 3rem;
   padding-right: 3rem;
 }
+.Pt\(10rem\) {
+  padding-top: 10rem;
+}
 .Pt\(3rem\) {
   padding-top: 3rem;
 }
+.Ta\(start\) {
+  text-align: left;
+}
+.Trs\(trs-d\) {
+  transition: all 300ms;
+}
+.W\(100\%\), .Row {
+  width: 100%;
+}
 .W\(600px\) {
   width: 600px;
+}
+.W\(minc\) {
+  width: min-content;
+}
+.Z\(999\) {
+  z-index: 999;
+}
+.Row {
+  clear: both;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  *display: block;
+  *width: auto;
+  zoom: 1;
+}
+.Gap\(1rem\) {
+  gap: 1rem;
+}
+.Gap\(2rem\) {
+  gap: 2rem;
 }

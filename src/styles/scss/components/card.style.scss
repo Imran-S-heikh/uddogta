@@ -1,0 +1,13 @@
+.white-circle {
+    .transparent-circle {
+        transition: all 300ms;
+        stroke    : transparent;
+    }
+
+    &:hover {
+
+        .transparent-circle {
+            stroke: #fff;
+        }
+    }
+}
