@@ -14,7 +14,7 @@ function TableCell({ component = "th", ...others }: Props): ReactElement {
 
 
 type element = React.ReactElement<any, string | React.JSXElementConstructor<any>>
-function handleElement(el: element, getValue: (arg: string | number) => any) {
+function handleElement(el: element, getValue: (arg: string | number) => any,formatter: (val: number | string)=> number | string) {
     const { type, props: { 'data-key': dataKey, 'data-map': dataMap = "children", ...others } } = el;
 
     if (dataKey === undefined) {
@@ -26,23 +26,24 @@ function handleElement(el: element, getValue: (arg: string | number) => any) {
     if (typeof value === 'string' || typeof value === 'number') {
         return React.createElement(type, {
             ...others,
-            [dataMap]: value,
+            [dataMap]: formatter(value),
         })
     }
 
     return el
 }
 
-interface DynamicTableCell {
+interface DynamicTableCell<T> {
     children: ReactElement | ReactElement[],
     className?: string,
     wraper?: boolean,
     wraperClass?: string,
-    component?: 'th' | 'td'
+    component?: 'th' | 'td',
+    formatter?: (val: number | string)=> number | string 
     // keys: string[]
 }
 
-function DynamicTableCell({ children, wraperClass, className, wraper = false, component = "th" }: DynamicTableCell) {
+function DynamicTableCell<T>({ children, wraperClass, className, wraper = false, component = "th",formatter = (val=>val) }: DynamicTableCell<T>) {
 
     const row = useContext(RowContext);
 
@@ -53,7 +54,7 @@ function DynamicTableCell({ children, wraperClass, className, wraper = false, co
     }
 
     return React.createElement(component, {
-        children: Children.map(children, el => handleElement(el, sendValue)),
+        children: Children.map(children, el => handleElement(el, sendValue,formatter)),
         className: className
     })
 }

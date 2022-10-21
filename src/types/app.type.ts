@@ -1,1 +1,1 @@
-export enum ActionType { ADD="ADD",RM="EM" }
+export enum ActionType { MINUS="MINUS",PLUS="PLUS" }

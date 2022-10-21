@@ -1,3 +1,6 @@
+.Ai\(c\) {
+  align-items: center;
+}
 .Bd\(border\) {
   border: 1px solid #e0eafe;
 }
@@ -55,10 +58,7 @@
 .Cur\(p\) {
   cursor: pointer;
 }
-.D\(b\) {
-  display: block;
-}
-.D\(b\)\:\:b::before {
+.D\(b\), .D\(b\)\:\:b::before {
   display: block;
 }
 .D\(f\) {
@@ -69,9 +69,6 @@
 }
 .Fxd\(c\) {
   flex-direction: column;
-}
-.Ai\(c\) {
-  align-items: center;
 }
 .Jc\(c\) {
   justify-content: center;
@@ -106,8 +103,14 @@
 .Fz\(2\.5rem\) {
   font-size: 2.5rem;
 }
+.Fz\(2rem\) {
+  font-size: 2rem;
+}
 .Fz\(3rem\) {
   font-size: 3rem;
+}
+.H\(100\%\) {
+  height: 100%;
 }
 .H\(2rem\) {
   height: 2rem;
@@ -136,6 +139,12 @@
 .Mt\(3rem\) {
   margin-top: 3rem;
 }
+.Maw\(maxc\) {
+  max-width: max-content;
+}
+.Mih\(100vh\) {
+  min-height: 100vh;
+}
 .Mih\(4rem\) {
   min-height: 4rem;
 }
@@ -144,6 +153,18 @@
 }
 .Miw\(maxc\) {
   min-width: max-content;
+}
+.End\(0\) {
+  right: 0;
+}
+.B\(0\) {
+  bottom: 0;
+}
+.Start\(0\) {
+  left: 0;
+}
+.Op\(\.5\) {
+  opacity: .5;
 }
 .Op\(\.8\) {
   opacity: .8;
@@ -169,14 +190,17 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.Pt\(10rem\) {
-  padding-top: 10rem;
-}
 .Pt\(3rem\) {
   padding-top: 3rem;
 }
+.Pos\(f\) {
+  position: fixed;
+}
 .Ta\(start\) {
   text-align: left;
+}
+.Td\(n\) {
+  text-decoration: none;
 }
 .Trs\(trs-d\) {
   transition: all 300ms;
@@ -201,13 +225,4 @@
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
-  *display: block;
-  *width: auto;
-  zoom: 1;
-}
-.Gap\(1rem\) {
-  gap: 1rem;
-}
-.Gap\(2rem\) {
-  gap: 2rem;
 }
