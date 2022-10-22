@@ -6,12 +6,13 @@ import { RowChildContext } from './TableRowWithChild.component';
 
 interface Props {
     children: ReactElement | ReactElement[],
-    columnCount?: number
+    columnCount?: number,
+    idKey: string  
 }
 
 
 
-function TableRowChild({ children,columnCount=15 }: Props): ReactElement {
+function TableRowChild({ children,columnCount=15,idKey }: Props): ReactElement {
 
     const data = useContext(RowChildContext);
 
@@ -19,7 +20,7 @@ function TableRowChild({ children,columnCount=15 }: Props): ReactElement {
         <tr className="W(100%)">
             <td className="" colSpan={columnCount}>
                 <Table data={data} className="W(100%)">
-                    <TableBody>
+                    <TableBody idKey={idKey}>
                         <TableRow className="Bgc(gray)">
                             {children}
                         </TableRow>

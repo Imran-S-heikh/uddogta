@@ -15,12 +15,13 @@ function Loading({}: Props) {
 interface LoadingSmallProps {
   type?: LoadingType;
   className?: string;
+  color?: string;
 }
 
-function LoadingSmall({ type, className }: LoadingSmallProps) {
+function LoadingSmall({ type, className,color }: LoadingSmallProps) {
   return (
     <div className={clsx(className, "D(f) Jc(c) Ai(c) H(100%)")}>
-      <ReactLoading type={type} />
+      <ReactLoading type={type} color={color} />
     </div>
   );
 }

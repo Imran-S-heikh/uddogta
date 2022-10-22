@@ -59,7 +59,7 @@ function RecordsItems() {
   return (
     <div className="">
       {records.map((item) => (
-        <Link to={`/records/${item.id}`} className="Td(n)">
+        <Link to={`/records/${item.id}`} key={item.id} className="Td(n)">
           <ButtonRipple
             key={item.id}
             className="H(6rem) Cur(p) W(100%) Trs(trs-d) Bgc(#00edb0):h Mt(1rem) Bgc(#00adb5) Bdrs(1rem) D(f) Jc(c) Ai(c)"

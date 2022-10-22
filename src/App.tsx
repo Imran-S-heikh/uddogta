@@ -5,11 +5,12 @@ import Record from "./pages/Record.page";
 import LoginPage from "./pages/Login.page";
 import Loading from "./molecules/Loading.mole";
 import { Route, Routes } from "react-router-dom";
+import SpinLoader from "./components/spin/Spin.component";
 
 function App() {
   return (
     <Suspense fallback={<Loading />}>
-      <div className="">
+      <div className="Pos(r)">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route
@@ -23,6 +24,8 @@ function App() {
           />
           <Route path="/" element={<Home />} />
         </Routes>
+
+        <SpinLoader />
       </div>
     </Suspense>
   );

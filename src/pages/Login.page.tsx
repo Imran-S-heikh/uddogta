@@ -12,7 +12,6 @@ function LoginPage() {
 
   const handleLogin = () => {
     signInWithGoogle().then((data) => {
-      console.log(data);
       setAppState((pre) => ({
         ...pre,
         page: "RECORD",

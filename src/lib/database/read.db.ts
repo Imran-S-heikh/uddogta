@@ -3,6 +3,7 @@ import {
   CollectionReference,
   getDocs,
   onSnapshot,
+  orderBy,
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -34,7 +35,7 @@ export async function getUserRecord(userId: string, recordId: string) {
     USER_ENTRIES
   );
 
-  const snap = await getDocs(ref);
+  const snap = await getDocs(query(ref, orderBy('date','asc')));
 
   snap.forEach((doc) => {
     const data = doc.data() as any;

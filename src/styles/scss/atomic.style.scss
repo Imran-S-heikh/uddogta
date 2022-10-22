@@ -154,8 +154,14 @@
 .Miw\(maxc\) {
   min-width: max-content;
 }
+.T\(2rem\) {
+  top: 2rem;
+}
 .End\(0\) {
   right: 0;
+}
+.End\(2rem\) {
+  right: 2rem;
 }
 .B\(0\) {
   bottom: 0;
@@ -193,8 +199,14 @@
 .Pt\(3rem\) {
   padding-top: 3rem;
 }
+.Pos\(a\) {
+  position: absolute;
+}
 .Pos\(f\) {
   position: fixed;
+}
+.Pos\(r\) {
+  position: relative;
 }
 .Ta\(start\) {
   text-align: left;
