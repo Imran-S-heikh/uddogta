@@ -30,6 +30,12 @@ export async function createEntry(
   return await addDoc(ref, data);
 }
 
+export async function deleteRecord(userId: string, recordId: string) {
+  const ref = doc(db, RECORDS, userId, USER_RECORDS, recordId);
+
+  return await deleteDoc(ref);
+}
+
 export async function deleteEntry(
   userId: string,
   recordId: string,

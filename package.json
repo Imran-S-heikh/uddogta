@@ -50,10 +50,10 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.2.0",
     "@types/node": "^18.11.3",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.1",
-    "atomizer": "^3.21.2",
+    "atomizer": "^3.29.0",
     "fantasticon": "^1.2.3",
     "node-sass": "^6.0.1",
     "typescript": "^4.8.4"
