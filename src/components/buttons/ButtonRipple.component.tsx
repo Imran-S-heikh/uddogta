@@ -95,10 +95,10 @@ const ButtonRipple = React.forwardRef(
         disabled={disabled}
         onClick={onClick}
         ref={handleRef}
-        style={style}
+        style={{cursor: disabled ? "not-allowed" : "pointer",...style}}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
-        className={clsx("btn-ripple", className)}
+        className={clsx("btn-ripple", className , disabled && "Op(.5)")}
       >
         {children}
       </button>
