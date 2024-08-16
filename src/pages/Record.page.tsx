@@ -14,11 +14,16 @@ import ClickAwayListener from "react-click-away-listener";
 import { AppState, UserState } from "../state/app.atom";
 import { ActionType } from "../types/app.type";
 import { UserRecordState } from "../state/records.atom";
-import { useParams } from "react-router-dom";
-import { createEntry, deleteEntry } from "../lib/database/create.db";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createEntry,
+  deleteEntry,
+  deleteRecord,
+} from "../lib/database/write.db";
 import Loading from "../molecules/Loading.mole";
 import { Entry, Filter } from "../type";
 import SpinLoaderState from "../components/spin/spin.atom";
+import { UserRecordsState } from "../state/records.selector";
 
 interface Props {}
 
@@ -40,21 +45,18 @@ const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
 
 const DeletePopup = () => {
   const [open, setOpen] = useState(false);
-  // const setRecords = useSetRecoilState(RecordsState);
-  // const record = useRecoilValue(UserRecordState);
-  // const setState = useSetRecoilState(AppState);
+  const user = useRecoilValue(UserState);
+  const { id } = useParams();
+  const setRecords = useSetRecoilState(UserRecordsState);
+  const navigate = useNavigate();
 
-  // console.log(record.)
-
-  const handleDeleteRecord = () => {
-    // localStorage.removeItem(record.currentRecord!)
-    // setRecords(pre => pre.filter(item => item !== record.currentRecord));
-    // setRecord(pre => ({
-    //     currentRecord: null,
-    //     record: []
-    // }));
-    // setOpen(false);
-    // setState(pre => ({ ...pre, page: 'RECORDS' }))
+  const handleDeleteRecord = async () => {
+    if (user?.uid && id) {
+      setOpen(false);
+      setRecords((pre) => pre.filter((item) => item.id !== id));
+      await deleteRecord(user.uid, id);
+      navigate("/");
+    }
   };
 
   return (
@@ -67,7 +69,7 @@ const DeletePopup = () => {
           <div className="Bgc(#082032) P(2rem) Bdrs(1rem)">
             <h2 className="Fz(2.4rem)">Are You Sure , to delete record ?</h2>
 
-            <div className="D(f) Mt(2rem) Gap(2rem)">
+            <div className="D(f) Mt(2rem) Gp(1rem)">
               <ButtonRipple
                 onClick={() => setOpen(false)}
                 className="Fx(1) H(4rem) Bdrs(1rem) Fz(1.8rem) Fw(600)"

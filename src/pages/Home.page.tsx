@@ -7,11 +7,12 @@ import { RecordIdState } from "../state/records.atom";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Loading from "../molecules/Loading.mole";
 import { Filter, Record } from "../type";
-import { createRecord } from "../lib/database/create.db";
+import { createRecord } from "../lib/database/write.db";
 import { User } from "firebase/auth";
 import { UserRecordsState } from "../state/records.selector";
 import { Link, Navigate } from "react-router-dom";
 import Icon from "../molecules/Icon.mole";
+import Hide from "../molecules/Hide.mole";
 
 interface Props {}
 
@@ -19,6 +20,7 @@ const AddNewRecord = () => {
   const [record, setRecord] = useState<Filter<Record, "id">>({ name: "" });
   const setRecords = useSetRecoilState(UserRecordsState);
   const [user] = useAuthState(auth);
+  const [addingRecord, setAddingRecord] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRecord((pre) => ({ ...pre, name: event.target.value }));
@@ -26,12 +28,16 @@ const AddNewRecord = () => {
 
   const addRecord = () => {
     if (record && record.name.length > 0 && user) {
+      setAddingRecord(true);
       createRecord(user.uid, record)
         .then((res) => {
           setRecords((pre) => [...pre, { id: res.id, name: record.name }]);
           setRecord({ name: "" });
         })
-        .catch(console.log);
+        .catch(console.log)
+        .finally(() => {
+          setAddingRecord(false);
+        });
     }
   };
 
@@ -49,6 +55,7 @@ const AddNewRecord = () => {
       </div>
       <div className="D(f) Fxd(c) Mt(1rem)">
         <input
+          value={record.name}
           placeholder="record name..."
           onChange={handleChange}
           className="Fz(16px) H(4rem) Bdrs(4rem) Px(2rem)"
@@ -56,9 +63,13 @@ const AddNewRecord = () => {
         />
         <ButtonRipple
           onClick={addRecord}
-          className="Mt(1rem) Fz(1.6rem) Bgc(#ff4c29) C(#fff) D(b) H(2rem) Px(3rem) H(4rem) Bdrs(4rem)"
+          className="Mt(1rem) Fz(1.6rem) Bgc(#ff4c29) C(#fff) D(b) H(2rem) Px(3rem) H(4rem) Bdrs(4rem) D(f) Ai(c) Jc(c)"
+          disabled={addingRecord}
         >
-          ADD
+          <span>ADD</span>
+          <Hide open={addingRecord}>
+            <Loading.Small type="bubbles" />
+          </Hide>
         </ButtonRipple>
       </div>
     </div>
