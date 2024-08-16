@@ -11,11 +11,13 @@ import { createRecord } from "../lib/database/create.db";
 import { User } from "firebase/auth";
 import { UserRecordsState } from "../state/records.selector";
 import { Link, Navigate } from "react-router-dom";
+import Icon from "../molecules/Icon.mole";
 
 interface Props {}
 
 const AddNewRecord = () => {
   const [record, setRecord] = useState<Filter<Record, "id">>({ name: "" });
+  const setRecords = useSetRecoilState(UserRecordsState);
   const [user] = useAuthState(auth);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,15 +28,25 @@ const AddNewRecord = () => {
     if (record && record.name.length > 0 && user) {
       createRecord(user.uid, record)
         .then((res) => {
-          console.log(res);
+          setRecords((pre) => [...pre, { id: res.id, name: record.name }]);
+          setRecord({ name: "" });
         })
         .catch(console.log);
     }
   };
 
+  async function handleSignout() {
+    await auth.signOut();
+  }
+
   return (
     <div className="">
-      <h2 className="Fz(2.4rem)">Add New Record</h2>
+      <div className="D(f) Jc(sb) Ai(c)">
+        <h2 className="Fz(2.4rem)">Add New Record</h2>
+        <div onClick={handleSignout} className="Cur(p) Op(.5):a">
+          <Icon icon="box-arrow-right" className="Fz(3rem)" />
+        </div>
+      </div>
       <div className="D(f) Fxd(c) Mt(1rem)">
         <input
           placeholder="record name..."

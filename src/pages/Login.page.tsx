@@ -1,14 +1,16 @@
 import { collection } from "firebase/firestore";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ButtonRipple from "../components/buttons/ButtonRipple.component";
 import { auth } from "../firebase";
 import Loading from "../molecules/Loading.mole";
-import { AppState } from "../state/app.atom";
+import { AppState, UserState } from "../state/app.atom";
+import { Navigate } from "react-router-dom";
 
 function LoginPage() {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, loading] = useSignInWithGoogle(auth);
   const setAppState = useSetRecoilState(AppState);
+  const user = useRecoilValue(UserState);
 
   const handleLogin = () => {
     signInWithGoogle().then((data) => {
@@ -21,6 +23,10 @@ function LoginPage() {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (Boolean(user)) {
+    return <Navigate to="/" />;
   }
 
   return (
