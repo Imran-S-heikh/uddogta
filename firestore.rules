@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+    match /databases/{database}/documents {
+
+        function recordExists(userId,recordId) {
+            return exists(/databases/$(database)/documents/RECORDS/$(userId)/USER_RECORDS/$(recordId));
+        }
+
+        function isOwner(userId) {
+            return request.auth.uid == userId;
+        }
+
+        match /RECORDS/{userId}/USER_RECORDS/{recordId} {
+
+            // Allow CREATE and DELETE Record if User is the Owner
+            allow write: if isOwner(userId);
+
+            // Allow CREATE and DELETE Entry if Parent Record exists and User is the Owner
+            match /USER_ENTRIES/{entryId} {
+                allow create: if recordExists(userId,recordId) && isOwner(userId);
+                allow delete: if isOwner(userId);
+            }
+
+            // Allow user READ all his own data
+            match /{document=**} {
+                allow read: if isOwner(userId);
+            }
+        }
+    }
+}

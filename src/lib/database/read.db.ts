@@ -1,6 +1,8 @@
 import {
+  doc,
   collection,
   CollectionReference,
+  getDoc,
   getDocs,
   onSnapshot,
   orderBy,
@@ -35,8 +37,7 @@ export async function getUserRecord(userId: string, recordId: string) {
     USER_ENTRIES
   );
 
-  const snap = await getDocs(query(ref, orderBy('date','asc')));
-
+  const snap = await getDocs(query(ref, orderBy("date", "asc")));
   snap.forEach((doc) => {
     const data = doc.data() as any;
     items.push({
