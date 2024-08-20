@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "./App.css";
 import Home from "./pages/Home.page";
-import Record from "./pages/Record.page";
+import Record from "./pages/Record";
 import LoginPage from "./pages/Login.page";
 import Loading from "./molecules/Loading.mole";
 import { Route, Routes } from "react-router-dom";

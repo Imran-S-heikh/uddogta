@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import { atom } from "recoil";
+import { atom, DefaultValue, selector } from "recoil";
 import { auth } from "../firebase";
+import { ActionType } from "../types/app.type";
 
 interface PageRoute {
   id: string;
@@ -54,12 +55,14 @@ type Routes = RoutesUnion<MutableArray<typeof PageRouteData>>;
 
 export interface AppState {
   page: Routes;
+  tab: ActionType;
 }
 
 export const AppState = atom<AppState>({
   key: "APP_STATE",
   default: {
     page: "RECORDS",
+    tab: ActionType.EXPENSE,
   },
 });
 
@@ -75,4 +78,17 @@ export const UserState = atom<User | null>({
     },
   ],
   dangerouslyAllowMutability: true,
+});
+
+export const TabState = selector({
+  key: "TAB_STATE",
+  get(opts) {
+    return opts.get(AppState).tab;
+  },
+  set(opts, newValue) {
+    opts.set(AppState, (prev) => ({
+      ...prev,
+      tab: newValue as ActionType,
+    }));
+  },
 });

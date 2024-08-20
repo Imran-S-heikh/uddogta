@@ -1,1 +1,4 @@
-export enum ActionType { MINUS="MINUS",PLUS="PLUS" }
+export enum ActionType {
+  EXPENSE = "EXPENSE",
+  INCOME = "INCOME",
+}

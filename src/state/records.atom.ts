@@ -27,24 +27,38 @@ export const RecordIdState = atom<string | null>({
   default: null,
 });
 
-export const UserRecordState = atomFamily<Entry[], string | undefined>({
+export const UserRecordState = atomFamily<
+  Entry[],
+  [string | undefined, string | undefined]
+>({
   key: "USER_RECORD_STATE",
-  effects: (id) => [
-    ({ setSelf, getLoadable }) => {
-      const user = getLoadable(UserState).getValue();
+  default: ([id, userId]) =>
+    new Promise(async (setSelf) => {
+      let data: Entry[] = [];
 
-      if (!id || !user?.uid) {
+      if (!id || !userId) {
         return setSelf([]);
       }
 
-      let data: Entry[] = []
-
-      getUserRecord(user.uid, id)
+      getUserRecord(userId, id)
         .then((d) => {
-          data = d
-        }).finally(()=>{
-          setSelf(data)
+          data = d;
         })
-    },
-  ],
+        .finally(() => {
+          setSelf(data);
+        });
+    }),
+  // effects: (id) => [
+  //   ({ setSelf, getLoadable }) => {
+  //     // const user = getLoadable(UserState).getValue();
+  //     console.log(auth.currentUser);
+
+  //     if (!id || auth.currentUser?.uid) {
+  //       return setSelf([]);
+  //     }
+
+  //     let data: Entry[] = [];
+
+  //   },
+  // ],
 });
