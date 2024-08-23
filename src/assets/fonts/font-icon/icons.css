@@ -1,8 +1,8 @@
 @font-face {
     font-family: "icons";
-    src: url("./icons.eot?2cf840e71d1c45199d27407d159a3d70#iefix") format("embedded-opentype"),
-url("./icons.woff2?2cf840e71d1c45199d27407d159a3d70") format("woff2"),
-url("./icons.woff?2cf840e71d1c45199d27407d159a3d70") format("woff");
+    src: url("./icons.eot?07cbe9c954370f9aa90b9fbb62d39da7#iefix") format("embedded-opentype"),
+url("./icons.woff2?07cbe9c954370f9aa90b9fbb62d39da7") format("woff2"),
+url("./icons.woff?07cbe9c954370f9aa90b9fbb62d39da7") format("woff");
 }
 
 i[class^="icon-"]:before, i[class*=" icon-"]:before {
@@ -19,9 +19,18 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 .icon-box-arrow-right:before {
     content: "\f101";
 }
-.icon-delete:before {
+.icon-calendar-minus:before {
     content: "\f102";
 }
-.icon-expand-more:before {
+.icon-calendar-plus:before {
     content: "\f103";
+}
+.icon-close:before {
+    content: "\f104";
+}
+.icon-delete:before {
+    content: "\f105";
+}
+.icon-expand-more:before {
+    content: "\f106";
 }

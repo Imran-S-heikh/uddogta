@@ -1,5 +1,8 @@
 {
     "box-arrow-right": 61697,
-    "delete": 61698,
-    "expand-more": 61699
+    "calendar-minus": 61698,
+    "calendar-plus": 61699,
+    "close": 61700,
+    "delete": 61701,
+    "expand-more": 61702
 }

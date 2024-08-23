@@ -43,6 +43,9 @@
 .Bgc\(lightgray\) {
   background-color: lightgray;
 }
+.Bgc\(t\) {
+  background-color: transparent;
+}
 .Bgc\(\#00edb0\)\:h:hover {
   background-color: #00edb0;
 }
@@ -151,6 +154,9 @@
 .Mt\(-3px\) {
   margin-top: -3px;
 }
+.Mt\(\.5rem\) {
+  margin-top: .5rem;
+}
 .Mt\(1rem\) {
   margin-top: 1rem;
 }
@@ -175,11 +181,17 @@
 .Miw\(maxc\) {
   min-width: max-content;
 }
+.T\(1\.5rem\) {
+  top: 1.5rem;
+}
 .T\(2rem\) {
   top: 2rem;
 }
 .End\(0\) {
   right: 0;
+}
+.End\(1\.5rem\) {
+  right: 1.5rem;
 }
 .End\(2rem\) {
   right: 2rem;
@@ -190,7 +202,7 @@
 .Start\(0\) {
   left: 0;
 }
-.Op\(\.5\), .Op\(\.5\)\:a:active {
+.Op\(\.5\), .Op\(\.5\)\:a:active, .Op\(\.5\)\:active:active {
   opacity: .5;
 }
 .Op\(\.8\) {
@@ -231,6 +243,9 @@
 }
 .Pos\(r\) {
   position: relative;
+}
+.Ta\(c\) {
+  text-align: center;
 }
 .Ta\(start\) {
   text-align: left;
