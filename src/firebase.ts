@@ -1,8 +1,10 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
-import { getAuth,connectAuthEmulator } from "firebase/auth";
-import { getFirestore,connectFirestoreEmulator } from "firebase/firestore";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+// import { getAnalytics } from "firebase/analytics";
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -11,13 +13,13 @@ import { getFirestore,connectFirestoreEmulator } from "firebase/firestore";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB3IvZ3hdln8Xmpe74mXzZsU13zkJPeZPE",
-  authDomain: "baki-5642e.firebaseapp.com",
+  apiKey: "AIzaSyCLq3K_eJFEGJT1iDAzE3HgnkNMsiIjY-o",
+  authDomain: "uddogta.firebaseapp.com",
   projectId: "uddogta",
-  storageBucket: "baki-5642e.appspot.com",
-  messagingSenderId: "280269559957",
-  appId: "1:280269559957:web:bcd06b30401ac77225239c",
-  databaseUrl: "http://127.0.0.1:4000/firestore"
+  storageBucket: "uddogta.appspot.com",
+  messagingSenderId: "811306740004",
+  appId: "1:811306740004:web:53aa450bf41c313e36ebb1",
+  measurementId: "G-BXK6Q1QD32",
 };
 
 // Initialize Firebase
@@ -25,5 +27,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-connectAuthEmulator(auth, "http://localhost:9099");
-connectFirestoreEmulator(db, "localhost", 8080);
+// const analytics = getAnalytics(app);
+
+// Check if its a development environment
+if (typeof process !== "undefined" && process?.env?.NODE_ENV === "development") {
+  connectAuthEmulator(auth, "http://localhost:9099");
+  connectFirestoreEmulator(db, "localhost", 8080);
+}

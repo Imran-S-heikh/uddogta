@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { MutableRefObject, ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import "./button-ripple.style.scss";

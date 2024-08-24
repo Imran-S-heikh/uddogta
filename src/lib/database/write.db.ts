@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Collections, Entry, Filter, Record } from "../../type";
 

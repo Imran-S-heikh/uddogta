@@ -1,10 +1,7 @@
 import clsx from "clsx";
-import React from "react";
 import ReactLoading, { LoadingType } from "react-loading";
 
-type Props = {};
-
-function Loading({}: Props) {
+function Loading() {
   return (
     <div className="Pos(f) Mih(100vh) Top(0) Start(0) End(0) B(0) D(f) Jc(c) Ai(c)">
       <ReactLoading type="spinningBubbles" />

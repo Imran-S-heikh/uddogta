@@ -1,5 +1,5 @@
 import {createPortal} from 'react-dom';
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 
 interface Props {
