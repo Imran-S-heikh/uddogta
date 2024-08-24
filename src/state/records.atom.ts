@@ -1,11 +1,9 @@
-import { onAuthStateChanged, User } from "firebase/auth";
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
-import { auth } from "../firebase";
+import { atom, atomFamily, selector } from "recoil";
 import { getUserRecord, getUserSingleRecord } from "../lib/database/read.db";
-import { Entry, Record } from "../type";
+import { Entry } from "../type";
 import { StateKeys } from "../types/state.type";
-import { getData, setData } from "../utils/manage.utils";
-import { AppState, RecordIdState, UserState } from "./app.atom";
+import { setData } from "../utils/manage.utils";
+import { RecordIdState, UserState, AppState } from "./app.atom";
 
 export const RecordsState = atom({
   key: "RECORDS_STATE",

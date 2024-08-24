@@ -14,10 +14,9 @@ import { deleteEntry } from "@/lib/database/write.db";
 import Icon from "@/molecules/Icon.mole";
 import { TabState, UserState } from "@/state/app.atom";
 import { UserRecordFilterState, UserRecordState } from "@/state/records.atom";
-import { ActionType } from "@/types/app.type";
-import { ReactNode, useContext } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
   const { id } = useContext(RowContext);
@@ -56,7 +55,7 @@ function Entries() {
   const { id } = useParams();
   const user = useRecoilValue(UserState);
   const action = useRecoilValue(TabState);
-  const [_, setEntries] = useRecoilState(UserRecordState([id, user?.uid!]));
+  const setEntries = useSetRecoilState(UserRecordState([id, user?.uid!]));
   const entries = useRecoilValue(UserRecordFilterState);
   const startSpin = useSetRecoilState(SpinLoaderState);
 
@@ -65,7 +64,7 @@ function Entries() {
   const handleDelete = async (entryId: string) => {
     if (user?.uid && id) {
       startSpin(true);
-      const deleted = await deleteEntry(user.uid, id, entryId);
+      await deleteEntry(user.uid, id, entryId);
       setEntries((pre) => pre.filter((item) => item.id !== entryId));
       startSpin(false);
     }

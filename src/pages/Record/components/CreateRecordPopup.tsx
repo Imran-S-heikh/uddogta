@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ButtonRipple from "@/components/buttons/ButtonRipple.component";
 import Icon from "@/molecules/Icon.mole";
 import Backdrop from "@/components/backdrop/Backdrop.component";
 import ClickAwayListener from "react-click-away-listener";
 import { TabState, UserState } from "@/state/app.atom";
-import { useNavigate, useParams } from "react-router-dom";
-import { createEntry, deleteRecord } from "@/lib/database/write.db";
-import { UserRecordsState } from "@/state/records.selector";
+import { useParams } from "react-router-dom";
+import { createEntry } from "@/lib/database/write.db";
 import { UserRecordState } from "@/state/records.atom";
-import DropDown from "@/components/drop-down/DropDown.component";
 import SpinLoaderState from "@/components/spin/spin.atom";
 import { Filter, Entry } from "@/type";
 import { ActionType } from "@/types/app.type";
@@ -34,7 +32,6 @@ const CreateRecordPopup = () => {
   const resetState = () => {
     setValue(0);
     setTitle("");
-    // setAction(ActionType.EXPENSE);
   };
 
   const handleClick = async () => {
@@ -104,14 +101,6 @@ const CreateRecordPopup = () => {
                     onChange={handleChange}
                   />
                 </div>
-                {/* <div className="D(f) Fx(1)">
-                  <DropDown
-                    onChange={setAction}
-                    label="Action:"
-                    className="W(100%)"
-                    options={[ActionType.EXPENSE, ActionType.INCOME]}
-                  />
-                </div> */}
               </div>
               <ButtonRipple
                 onClick={handleClick}

@@ -1,16 +1,9 @@
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import { atom, DefaultValue, selector } from "recoil";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { atom, selector } from "recoil";
 import { auth } from "../firebase";
 import { ActionType } from "../types/app.type";
-import { syncEffect, urlSyncEffect } from "recoil-sync";
+import { syncEffect } from "recoil-sync";
 import { nullable, string } from "@recoiljs/refine";
-
-interface PageRoute {
-  id: string;
-  title: string;
-  details: string;
-  path: string;
-}
 
 const PageRouteData = [
   {
@@ -55,12 +48,12 @@ type RoutesUnion<T extends any[], K extends string[] = []> = T extends [
 
 type Routes = RoutesUnion<MutableArray<typeof PageRouteData>>;
 
-export interface AppState {
+export interface AppStateType {
   page: Routes;
   tab: ActionType;
 }
 
-export const AppState = atom<AppState>({
+export const AppState = atom<AppStateType>({
   key: "APP_STATE",
   default: {
     page: "RECORDS",

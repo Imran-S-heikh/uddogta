@@ -1,4 +1,4 @@
-import React, { ReactElement, Suspense, useContext, useState } from "react";
+import { ReactElement, Suspense } from "react";
 import Loading from "@/molecules/Loading.mole";
 import CreateRecordPopup from "./components/CreateRecordPopup";
 import RecordTabs from "./components/RecordTabs";
@@ -10,9 +10,7 @@ import { useParams } from "react-router-dom";
 import { RecoilSync } from "recoil-sync";
 import { RECORD_ID_SYNC, RecordIdState } from "@/state/app.atom";
 
-interface Props {}
-
-function Record({}: Props): ReactElement {
+function Record(): ReactElement {
   const record = useRecoilValue(UserSingleRecordState);
 
   return (

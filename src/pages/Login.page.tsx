@@ -1,4 +1,3 @@
-import { collection } from "firebase/firestore";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ButtonRipple from "../components/buttons/ButtonRipple.component";
@@ -13,7 +12,7 @@ function LoginPage() {
   const user = useRecoilValue(UserState);
 
   const handleLogin = () => {
-    signInWithGoogle().then((data) => {
+    signInWithGoogle().then(() => {
       setAppState((pre) => ({
         ...pre,
         page: "RECORD",

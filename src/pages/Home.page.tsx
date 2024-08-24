@@ -1,19 +1,16 @@
 import React, { ReactElement, Suspense, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ButtonRipple from "../components/buttons/ButtonRipple.component";
 import { auth } from "../firebase";
-import { AppState, UserState } from "../state/app.atom";
-import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { UserState } from "../state/app.atom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../molecules/Loading.mole";
 import { Filter, Record } from "../type";
 import { createRecord } from "../lib/database/write.db";
-import { User } from "firebase/auth";
 import { UserRecordsState } from "../state/records.selector";
 import { Link, Navigate } from "react-router-dom";
 import Icon from "../molecules/Icon.mole";
 import Hide from "../molecules/Hide.mole";
-
-interface Props {}
 
 const AddNewRecord = () => {
   const [record, setRecord] = useState<Filter<Record, "id">>({ name: "" });
@@ -94,7 +91,7 @@ function RecordsItems() {
   );
 }
 
-function Home({}: Props): ReactElement {
+function Home(): ReactElement {
   const user = useRecoilValue(UserState);
 
   if (!Boolean(user)) {
