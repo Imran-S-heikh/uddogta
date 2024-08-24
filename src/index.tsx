@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
+import { RecoilURLSyncTransit } from "recoil-sync";
 
 ReactDOM.render(
   <React.StrictMode>

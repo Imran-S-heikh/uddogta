@@ -1,11 +1,13 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ButtonRipple from "@/components/buttons/ButtonRipple.component";
-import { TabState } from "@/state/app.atom";
+import { RecordIdState, TabState } from "@/state/app.atom";
 import { ActionType } from "@/types/app.type";
 import clsx from "clsx";
 
 function RecordTabs() {
   const [tab, setTab] = useRecoilState(TabState);
+  const recodId = useRecoilValue(RecordIdState);
+  console.log({ recodId });
   return (
     <div className="Bgc(#082032) D(f) Gp(2rem) P(1rem) Bdrs(8px) Mt(2rem) ">
       <ButtonRipple

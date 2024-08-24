@@ -1,11 +1,11 @@
 import { onAuthStateChanged, User } from "firebase/auth";
-import { atom, atomFamily, selector } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { auth } from "../firebase";
-import { getUserRecord } from "../lib/database/read.db";
+import { getUserRecord, getUserSingleRecord } from "../lib/database/read.db";
 import { Entry, Record } from "../type";
 import { StateKeys } from "../types/state.type";
 import { getData, setData } from "../utils/manage.utils";
-import { AppState, UserState } from "./app.atom";
+import { AppState, RecordIdState, UserState } from "./app.atom";
 
 export const RecordsState = atom({
   key: "RECORDS_STATE",
@@ -21,11 +21,6 @@ export interface RecordState {
   currentRecord: string | null;
   record: any[];
 }
-
-export const RecordIdState = atom<string | null>({
-  key: "RECORD_ID_STATE",
-  default: null,
-});
 
 export const UserRecordState = atomFamily<
   Entry[],
@@ -48,17 +43,42 @@ export const UserRecordState = atomFamily<
           setSelf(data);
         });
     }),
-  // effects: (id) => [
-  //   ({ setSelf, getLoadable }) => {
-  //     // const user = getLoadable(UserState).getValue();
-  //     console.log(auth.currentUser);
+});
 
-  //     if (!id || auth.currentUser?.uid) {
-  //       return setSelf([]);
-  //     }
+export const UserRecordStateSelector = selector({
+  key: "USER_RECORD_STATE_SELECTOR",
+  get({ get }) {
+    const user = get(UserState);
+    const recordId = get(RecordIdState);
 
-  //     let data: Entry[] = [];
+    if (!user || !recordId) {
+      return [];
+    }
 
-  //   },
-  // ],
+    return get(UserRecordState([recordId, user?.uid]));
+  },
+});
+
+export const UserRecordFilterState = selector({
+  key: "USER_RECORD_FILTER_STATE",
+  get({ get }) {
+    const data = get(UserRecordStateSelector);
+    const appState = get(AppState);
+    return data.filter((d) => d.action === appState.tab);
+  },
+});
+
+export const UserSingleRecordState = selector({
+  key: "USER_SINGLE_RECORD_STATE",
+  get({ get }) {
+    const recordId = get(RecordIdState);
+    const user = get(UserState);
+
+    if (!user || !recordId) {
+      return null;
+    }
+
+    const data = getUserSingleRecord(user?.uid!, recordId);
+    return data;
+  },
 });

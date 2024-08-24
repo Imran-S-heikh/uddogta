@@ -26,6 +26,13 @@ export async function getUserRecords(userId: string) {
   return items;
 }
 
+export async function getUserSingleRecord(userId: string, recordId: string) {
+  const ref = doc(db, RECORDS, userId, USER_RECORDS, recordId);
+  const snap = await getDoc(ref);
+
+  return snap.data() as Record | undefined;
+}
+
 export async function getUserRecord(userId: string, recordId: string) {
   const items: Entry[] = [];
   const ref = collection(

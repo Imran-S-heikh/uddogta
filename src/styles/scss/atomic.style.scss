@@ -7,6 +7,9 @@
 .Bd\(n\) {
   border: none;
 }
+.Bdrs\(\.8rem\) {
+  border-radius: .8rem;
+}
 .Bdrs\(1rem\) {
   border-radius: 1rem;
 }
@@ -166,6 +169,12 @@
 .Mt\(5rem\) {
   margin-top: 5rem;
 }
+.Maw\(15rem\)\! {
+  max-width: 15rem !important;
+}
+.Maw\(20rem\) {
+  max-width: 20rem;
+}
 .Maw\(maxc\) {
   max-width: max-content;
 }
@@ -211,7 +220,7 @@
 .Op\(\.6\)\:a:active {
   opacity: .6;
 }
-.Ov\(h\) {
+.Ov\(h\), .Ell:after, .Ell {
   overflow: hidden;
 }
 .P\(1rem\) {
@@ -220,6 +229,12 @@
 .P\(2rem\) {
   padding: 2rem;
 }
+.Px\(1rem\), .Pstart\(1rem\) {
+  padding-left: 1rem;
+}
+.Px\(1rem\) {
+  padding-right: 1rem;
+}
 .Px\(2rem\) {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -227,6 +242,10 @@
 .Px\(3rem\) {
   padding-left: 3rem;
   padding-right: 3rem;
+}
+.Py\(\.6rem\) {
+  padding-top: .6rem;
+  padding-bottom: .6rem;
 }
 .Py\(1rem\) {
   padding-top: 1rem;
@@ -274,12 +293,30 @@
 .W\(minc\) {
   width: min-content;
 }
+.Z\(50\) {
+  z-index: 50;
+}
 .Z\(999\) {
   z-index: 999;
 }
+.Ell:after {
+  content: ".";
+  font-size: 0;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+.Ell:after, .Row {
+  display: inline-block;
+}
+.Ell {
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  hyphens: none;
+}
 .Row {
   clear: both;
-  display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
 }

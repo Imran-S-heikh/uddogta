@@ -2,6 +2,8 @@ import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { atom, DefaultValue, selector } from "recoil";
 import { auth } from "../firebase";
 import { ActionType } from "../types/app.type";
+import { syncEffect } from "recoil-sync";
+import { nullable, string } from "@recoiljs/refine";
 
 interface PageRoute {
   id: string;
@@ -91,4 +93,14 @@ export const TabState = selector({
       tab: newValue as ActionType,
     }));
   },
+});
+
+export const RECORD_ID_SYNC = "RECORD_ID_SYNC";
+
+export const RecordIdState = atom<string | null | undefined>({
+  key: "RECORD_ID_STATE",
+  default: null,
+  effects: [
+    syncEffect({ storeKey: RECORD_ID_SYNC, refine: nullable(string()) }),
+  ],
 });

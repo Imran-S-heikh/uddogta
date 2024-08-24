@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import ButtonRipple from "../components/buttons/ButtonRipple.component";
 import { auth } from "../firebase";
 import { AppState, UserState } from "../state/app.atom";
-import { RecordIdState } from "../state/records.atom";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Loading from "../molecules/Loading.mole";
 import { Filter, Record } from "../type";

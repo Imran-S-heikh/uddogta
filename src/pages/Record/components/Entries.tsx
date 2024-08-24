@@ -4,12 +4,18 @@ import TableBody, { RowContext } from "@/components/table/TableBody.component";
 import TableCell from "@/components/table/TableCell.component";
 import TableHead from "@/components/table/TableHead.component";
 import TableRow from "@/components/table/TableRow.component";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 import { deleteEntry } from "@/lib/database/write.db";
 import Icon from "@/molecules/Icon.mole";
-import { UserState } from "@/state/app.atom";
-import { UserRecordState } from "@/state/records.atom";
+import { TabState, UserState } from "@/state/app.atom";
+import { UserRecordFilterState, UserRecordState } from "@/state/records.atom";
 import { ActionType } from "@/types/app.type";
-import { useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 
@@ -29,19 +35,32 @@ const DeleteElement = ({ onDelete }: { onDelete?: (id: string) => void }) => {
   );
 };
 
+function Title({ title }: { title: string } & any) {
+  if (title.length < 18) {
+    return <span className="Ell Maw(15rem)! D(b)">{title}</span>;
+  }
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <span className="Ell Maw(15rem)! D(b)">{title}</span>
+        </TooltipTrigger>
+        <TooltipContent className="Maw(20rem) Ta(c)">{title}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
 function Entries() {
   const { id } = useParams();
   const user = useRecoilValue(UserState);
-  const [entries, setEntries] = useRecoilState(
-    UserRecordState([id, user?.uid!])
-  );
+  const action = useRecoilValue(TabState);
+  const [_, setEntries] = useRecoilState(UserRecordState([id, user?.uid!]));
+  const entries = useRecoilValue(UserRecordFilterState);
   const startSpin = useSetRecoilState(SpinLoaderState);
 
-  const total = entries.reduce(
-    (pre, { action, value }) =>
-      action === ActionType.INCOME ? pre - value : pre + value,
-    0
-  );
+  const total = entries.reduce((pre, { value }) => pre + value, 0);
 
   const handleDelete = async (entryId: string) => {
     if (user?.uid && id) {
@@ -56,8 +75,7 @@ function Entries() {
       <Table data={entries} className="W(100%) Fz(1.6rem) Bdcl(c)">
         <TableHead className="H(4rem) Bgc(#082032)">
           <TableRow>
-            <TableCell>ACTION</TableCell>
-            <TableCell>TITLE</TableCell>
+            <TableCell className="Ta(start) Pstart(1rem)">TITLE</TableCell>
             <TableCell>AMOUNT</TableCell>
             <TableCell>DATE</TableCell>
             <TableCell>REMOVE</TableCell>
@@ -68,11 +86,8 @@ function Entries() {
             className="H(4rem) Bgc(#2c394b) "
             style={{ borderTop: "1px solid #334756" }}
           >
-            <TableCell.Dynamic>
-              <span data-key="action"></span>
-            </TableCell.Dynamic>
-            <TableCell.Dynamic className="W(minc) ">
-              <span data-key="title"></span>
+            <TableCell.Dynamic className="W(minc) Ta(start) Pstart(1rem) ">
+              <Title data-key="title" data-map="title" />
             </TableCell.Dynamic>
             <TableCell.Dynamic>
               <span data-key="value"></span>
@@ -89,7 +104,7 @@ function Entries() {
         </TableBody>
       </Table>
       <div className="D(f) Gap(1rem) Bgc(#082032) Jc(fe) Py(1rem) Px(3rem) W(maxc) Mstart(a)">
-        <p className="Fz(1.8rem)">Total:&nbsp;</p>
+        <p className="Fz(1.8rem) Tt(c)">Total {action.toLowerCase()}:&nbsp;</p>
         <p className="Fz(1.8rem)">{total}</p>
       </div>
     </div>
