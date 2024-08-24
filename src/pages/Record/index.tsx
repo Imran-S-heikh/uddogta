@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { UserSingleRecordState } from "@/state/records.atom";
 import { useParams } from "react-router-dom";
 import { RecoilSync } from "recoil-sync";
-import { RECORD_ID_SYNC } from "@/state/app.atom";
+import { RECORD_ID_SYNC, RecordIdState } from "@/state/app.atom";
 
 interface Props {}
 
@@ -37,7 +37,11 @@ function Record({}: Props): ReactElement {
 function RecordWraper() {
   const { id } = useParams();
   return (
-    <RecoilSync storeKey={RECORD_ID_SYNC} read={() => id}>
+    <RecoilSync
+      listen={({ updateItem }) => updateItem(RecordIdState.key, id)}
+      storeKey={RECORD_ID_SYNC}
+      read={() => id}
+    >
       <Record />
     </RecoilSync>
   );

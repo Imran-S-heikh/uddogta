@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { atom, DefaultValue, selector } from "recoil";
 import { auth } from "../firebase";
 import { ActionType } from "../types/app.type";
-import { syncEffect } from "recoil-sync";
+import { syncEffect, urlSyncEffect } from "recoil-sync";
 import { nullable, string } from "@recoiljs/refine";
 
 interface PageRoute {
